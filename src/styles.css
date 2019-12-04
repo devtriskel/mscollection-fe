@@ -1,1 +1,90 @@
-/* You can add global styles to this file, and also import other style files */
+/* General stye */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+h1 { color: purple; }
+
+* {
+  box-sizing: border-box;
+}
+
+/* General form style */
+label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  border-radius: 25px;
+  border: none;
+  margin-top: 10px;
+  padding: 15px;
+  outline: none;
+  font-size: 1.2em;
+}
+
+input[type="submit"] {
+  background-color: #d79abc;
+  font-weight: bold;
+  color: purple;
+  margin-top: 40px;
+}
+
+.input-form-error { color: red; }
+
+/* Columns style */
+.row {
+  display: table;
+  width: 100%;
+  height: 100vh;
+}
+
+.column {
+  display: table-cell;
+  padding: 10px 15px;
+}
+
+.left {
+  width: 350px;
+  background-color: #9fdfcd;
+}
+
+.right {
+  background-color: #dcffcc;
+  overflow-y: scroll;
+}
+
+/* Box list */
+.box-list {
+  width: 100%;
+  margin-bottom: 10px;
+  display: table;
+}
+
+.box-list:hover {
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(183,248,219,0.6601015406162465) 26%, rgba(80,167,194,0.09987745098039214) 73%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(183,248,219,0.6601015406162465) 26%, rgba(80,167,194,0.09987745098039214) 73%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(183,248,219,0.6601015406162465) 26%, rgba(80,167,194,0.09987745098039214) 73%, rgba(255,255,255,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
+}
+
+.box-list div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.box-list .avatar { width: 50px; }
+.box-list .avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.box-list .content { padding: 0 20px; }
+
+.box-list .options { width: 50px; }
+.box-list .options i { cursor: pointer; }
+.box-list .options i:nth-child(1) { color: green; }
+.box-list .options i:nth-child(2) { color: #b30000; }

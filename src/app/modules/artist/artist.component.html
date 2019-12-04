@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="column left">
+    <h1>Artistas</h1>
+
+    <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+      <label>
+        Artista:
+        <input type="text" formControlName="name"/>
+        <div *ngIf="isSubmitted && artistForm.controls.name.errors" class="input-form-error">
+          <div *ngIf="artistForm.controls.name.errors.required">Nombre es requerido</div>
+        </div>
+      </label>
+      
+      <label>
+        Año de fundación:
+        <input type="text" formControlName="year"/>
+        <div *ngIf="isSubmitted && artistForm.controls.year.errors" class="input-form-error">
+            <div *ngIf="artistForm.controls.year.errors.required">Año es requerido</div>
+            <div *ngIf="artistForm.controls.year.errors.pattern">Formato incorrecto</div>
+        </div>
+      </label>
+
+      <input type="submit" value="Guardar"/>
+    </form>
+
+    <div *ngIf="isSuccess">Datos guardados!</div>
+  </div>
+
+  <div class="column right">
+    <div *ngIf="artistList">
+      <div class="box-list" *ngFor="let artist of artistList.content">
+        <div class="avatar"><img src="../../../assets/images/avatar.png"/></div>
+        <div class="content">
+          <p class="title">{{artist.name}} ({{artist.year}})</p>
+        </div>
+        <div class="options">
+          <i class="material-icons" (click)="editArtist(artist)" title="Editar">edit</i>
+          <i class="material-icons" (click)="deleteArtist(artist)" title="Eliminar">delete_outline</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
