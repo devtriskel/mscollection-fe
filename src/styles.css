@@ -29,6 +29,7 @@ input[type="submit"] {
   font-weight: bold;
   color: purple;
   margin-top: 40px;
+  cursor: pointer;
 }
 
 .input-form-error { color: red; }
