@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArtistComponent } from './modules/artist/artist.component';
 import { MemberComponent } from './modules/member/member.component';
+import { StyleComponent } from './modules/style/style.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArtistComponent,
-    MemberComponent
+    MemberComponent,
+    StyleComponent
   ],
   imports: [
     BrowserModule,

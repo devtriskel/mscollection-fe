@@ -1,0 +1,20 @@
+h1, label, input[type="submit"], .right {
+  color: #e9b5d2;
+}
+
+input[type="text"] {
+  color: #000;
+}
+
+input[type="submit"] {
+  background-color: #951556;
+  color: #e9b5d2;
+}
+
+.left {
+  background-color: #35013f;
+}
+
+.right {
+  background-color: #561050;
+}

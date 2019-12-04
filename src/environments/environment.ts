@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   timeout: 10000,
   apiArtists: 'http://localhost:8080/mscollection-api/artists',
-  apiMembers: 'http://localhost:8080/mscollection-api/members'
+  apiMembers: 'http://localhost:8080/mscollection-api/members',
+  apiStyles: 'http://localhost:8080/mscollection-api/styles'
 };
 
 /*

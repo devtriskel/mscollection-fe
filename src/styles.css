@@ -32,7 +32,7 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-.input-form-error { color: red; }
+.input-form-error { color: red !important; }
 
 /* Columns style */
 .row {

@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="column left">
+    <h1>Estilos</h1>
+
+    <form [formGroup]="styleForm" (ngSubmit)="onSubmit()">
+      <label>
+        Estilo musical:
+        <input type="text" formControlName="name"/>
+        <div *ngIf="isSubmitted && styleForm.controls.name.errors" class="input-form-error">
+          <div *ngIf="styleForm.controls.name.errors.required">Estilo es requerido</div>
+        </div>
+      </label>
+
+      <input type="submit" value="Guardar"/>
+    </form>
+
+    <div *ngIf="isSuccess">Datos guardados!</div>
+  </div>
+
+  <div class="column right">
+    <div *ngIf="styleList">
+      <div class="box-list" *ngFor="let style of styleList.content">
+        <div class="avatar"><img src="../../../assets/images/style.png"/></div>
+        <div class="content">
+          <p class="title">{{style.name}}</p>
+        </div>
+        <div class="options">
+          <i class="material-icons" (click)="editStyle(style)" title="Editar">edit</i>
+          <i class="material-icons" (click)="deleteStyle(style)" title="Eliminar">delete_outline</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
