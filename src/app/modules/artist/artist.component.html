@@ -30,7 +30,7 @@
     <div class="search">
       Busca por estilo: 
       <select *ngIf="styleList" [(ngModel)]="selectedStyle" (change)="onStyleChange()">
-        <option value=null selected>-- Todos --</option>
+        <option value="0" selected>-- Todos --</option>
         <option *ngFor="let style of styleList.content" value={{style.id}}>{{style.name}}</option>
       </select>
     </div>

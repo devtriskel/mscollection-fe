@@ -30,7 +30,7 @@ export class StyleApiService {
   }
 
   getRelatedArtists(id: number) {
-    let endpoint = (id == null) ?
+    let endpoint = (id == null || id == 0) ?
       environment.apiArtists : environment.apiStylesRelatedArtists.replace('{styleId}', id.toString());
     
     return this.http.get<Artists>(endpoint)
