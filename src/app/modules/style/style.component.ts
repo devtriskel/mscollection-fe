@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { StyleApiService } from '../../services/api/style-api.service';
 import { Styles } from 'src/app/models/style/styles.model';
@@ -20,12 +21,15 @@ export class StyleComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private styleApi: StyleApiService
+    private styleApi: StyleApiService,
+    private title: Title
   ) { 
     this.styleForm = this.formBuilder.group({
       id: null,
       name: ['', Validators.required]
-    })
+    });
+
+    this.title.setTitle('Estilos | Musify');
   }
 
   ngOnInit() {

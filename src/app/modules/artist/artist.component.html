@@ -26,6 +26,15 @@
 
   <div class="column right">
     <app-menu></app-menu>
+
+    <div class="search">
+      Busca por estilo: 
+      <select *ngIf="styleList" [(ngModel)]="selectedStyle" (change)="onStyleChange()">
+        <option value=null selected>-- Todos --</option>
+        <option *ngFor="let style of styleList.content" value={{style.id}}>{{style.name}}</option>
+      </select>
+    </div>
+
     <div *ngIf="artistList">
       <div class="box-list" *ngFor="let artist of artistList.content">
         <div class="avatar"><img src="../../../assets/images/music.png"/></div>

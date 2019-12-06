@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material';
 
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
@@ -33,25 +34,30 @@ export class ArtistComponent implements OnInit {
   artistStyles: Map<number, Style[]> = new Map<number, Style[]>();
   artistMembers: Map<number, Member[]> = new Map<number, Member[]>();
 
+  selectedStyle: number;
+
   constructor(
     private formBuilder: FormBuilder,
     private artistApi: ArtistApiService,
     private styleApi: StyleApiService,
     private memberApi: MemberApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private title: Title
   ) {
     this.artistForm = this.formBuilder.group({
       id: null,
       name: ['', Validators.required],
       year: ['', [Validators.required, Validators.pattern('^\\d{4}$')]]
     });
+
+    this.title.setTitle('Artistas | Musify');
   }
 
   ngOnInit() {
     this.isSubmitted = false;
     this.isSuccess = false;
 
-    this.searchArtists();
+    this.searchArtistsByStyleId();
 
     // Get all styles available for dropdown options
     this.styleApi.getAllStyles().subscribe(data => {
@@ -76,8 +82,8 @@ export class ArtistComponent implements OnInit {
   }
 
   // Search artist from database (overload control on jpa)
-  searchArtists() {
-    this.artistApi.getAllArtists().subscribe(data => {
+  searchArtistsByStyleId() {
+    this.styleApi.getRelatedArtists(this.selectedStyle).subscribe(data => {
       this.artistList = data;
 
       // Get all relations per artist
@@ -97,7 +103,7 @@ export class ArtistComponent implements OnInit {
 
     this.artistApi.saveArtist(artistRq).subscribe(data => {
       if (data != null && data.id != null) {
-        this.searchArtists();
+        this.searchArtistsByStyleId();
         this.resetForm();
 
         return true;
@@ -117,7 +123,7 @@ export class ArtistComponent implements OnInit {
   // Delete an artist
   deleteArtist(artist: Artist) {
     this.artistApi.deleteArtist(artist.id).subscribe(data => {
-      this.searchArtists();
+      this.searchArtistsByStyleId();
 
       return true;
     }, error => {
@@ -189,6 +195,11 @@ export class ArtistComponent implements OnInit {
     this.artistApi.getRelatedMembers(artistId).subscribe(x => {
       this.artistMembers.set(artistId, x.content);
     });
+  }
+
+  // Style dropdown
+  onStyleChange() {
+    this.searchArtistsByStyleId();
   }
 
   // Clear form and controls after any succeeded process

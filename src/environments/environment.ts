@@ -13,7 +13,8 @@ export const environment = {
   apiArtistsDeleteRelatedStyle: 'http://localhost:8080/mscollection-api/artists/{artistId}/styles/{styleId}',
   apiArtistsDeleteRelatedArtist: 'http://localhost:8080/mscollection-api/artists/{artistId}/relatedToArtists/{relatedToArtistsId}',
   apiMembers: 'http://localhost:8080/mscollection-api/members',
-  apiStyles: 'http://localhost:8080/mscollection-api/styles'
+  apiStyles: 'http://localhost:8080/mscollection-api/styles',
+  apiStylesRelatedArtists: 'http://localhost:8080/mscollection-api/styles/{styleId}/artists'
 };
 
 /*

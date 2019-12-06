@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { Styles } from '../../models/style/styles.model';
 import { StyleRQ } from 'src/app/models/style/style-rq.model';
 import { StyleRS } from 'src/app/models/style/style-rs.model';
+import { Artists } from 'src/app/models/artist/artists.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,6 +23,17 @@ export class StyleApiService {
 
   getAllStyles() {
     return this.http.get<Styles>(environment.apiStyles)
+      .pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  getRelatedArtists(id: number) {
+    let endpoint = (id == null) ?
+      environment.apiArtists : environment.apiStylesRelatedArtists.replace('{styleId}', id.toString());
+    
+    return this.http.get<Artists>(endpoint)
       .pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)

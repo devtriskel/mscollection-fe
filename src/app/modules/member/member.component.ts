@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { MemberApiService } from '../../services/api/member-api.service';
 import { Members } from 'src/app/models/member/members.model';
@@ -20,13 +21,16 @@ export class MemberComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private memberApi: MemberApiService
+    private memberApi: MemberApiService,
+    private title: Title
   ) { 
     this.memberForm = this.formBuilder.group({
       id: null,
       name: ['', Validators.required],
       years: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
-    })
+    });
+
+    this.title.setTitle('Miembros | Musify');
   }
 
   ngOnInit() {
