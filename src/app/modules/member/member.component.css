@@ -1,0 +1,15 @@
+input[type="submit"] { background-color: #a5bdfd; }
+
+.left { background-color: #dcb5ff; }
+
+.right { background-color: #d9f2ff; }
+
+.box-list .content .title span { display: block; }
+
+.box-list:hover {
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(140,175,251,0.36878501400560226) 50%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(140,175,251,0.36878501400560226) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(140,175,251,0.36878501400560226) 50%, rgba(255,255,255,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
+}

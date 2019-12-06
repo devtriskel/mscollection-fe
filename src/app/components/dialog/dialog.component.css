@@ -1,0 +1,11 @@
+button {
+  width: 100px;
+  border-radius: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+button:nth-child(1) { margin-right: 5px; }
+button:nth-child(2) { margin-left: 5px; }
+
+select { width: 100%; margin-bottom: 20px; }

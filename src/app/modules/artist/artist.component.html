@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="column left">
+    <h1>Artistas</h1>
+
+    <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+      <label>
+        Artista:
+        <input type="text" formControlName="name"/>
+        <div *ngIf="isSubmitted && artistForm.controls.name.errors" class="input-form-error">
+          <div *ngIf="artistForm.controls.name.errors.required">Nombre es requerido</div>
+        </div>
+      </label>
+      
+      <label>
+        Año de fundación:
+        <input type="text" formControlName="year"/>
+        <div *ngIf="isSubmitted && artistForm.controls.year.errors" class="input-form-error">
+            <div *ngIf="artistForm.controls.year.errors.required">Año es requerido</div>
+            <div *ngIf="artistForm.controls.year.errors.pattern">Formato incorrecto</div>
+        </div>
+      </label>
+
+      <input type="submit" value="Guardar"/>
+    </form>
+  </div>
+
+  <div class="column right">
+    <app-menu></app-menu>
+
+    <div class="search">
+      Busca por estilo: 
+      <select *ngIf="styleList" [(ngModel)]="selectedStyle" (change)="onStyleChange()">
+        <option value=null selected>-- Todos --</option>
+        <option *ngFor="let style of styleList.content" value={{style.id}}>{{style.name}}</option>
+      </select>
+    </div>
+
+    <div *ngIf="artistList">
+      <div class="box-list" *ngFor="let artist of artistList.content">
+        <div class="avatar"><img src="../../../assets/images/music.png"/></div>
+        <div class="content">          
+          <div class="title">{{artist.name}} <span>({{artist.year}})</span></div>
+          <div>
+            <i class="material-icons member" (click)="addRelatedMember(artist.id)" title="Añadir miembro a {{artist.name}}">add_circle</i>
+            <div class="mini-box member" *ngFor="let member of artistMembers?.get(artist.id)">
+              {{member.name}} <i class="material-icons" (click)="deleteRelatedMember(artist.id, member.id)" title="Eliminar {{member.name}} de {{artist.name}}">remove_circle</i>
+            </div>
+          </div>
+          <div>
+            <i class="material-icons style" (click)="addRelatedStyle(artist.id)" title="Añadir estilo a {{artist.name}}">add_circle</i>
+            <div class="mini-box style" *ngFor="let style of artistStyles?.get(artist.id)">
+              {{style.name}} <i class="material-icons" (click)="deleteRelatedStyle(artist.id, style.id)" title="Eliminar {{style.name}} de {{artist.name}}">remove_circle</i>
+            </div>
+          </div>
+          <div>
+            <i class="material-icons artist" (click)="addRelatedArtist(artist.id)" title="Añadir artista relacionado a {{artist.name}}">add_circle</i>
+            <div class="mini-box artist" *ngFor="let related of artistRelated?.get(artist.id)">
+              {{related.name}} <i class="material-icons" (click)="deleteRelatedArtist(artist.id, related.id)" title="Eliminar {{related.name}} como relacionado a {{artist.name}}">remove_circle</i>
+            </div>
+          </div>
+        </div>
+        <div class="options">
+          <i class="material-icons" (click)="editArtist(artist)" title="Editar {{artist.name}}">edit</i>
+          <i class="material-icons" (click)="deleteArtist(artist)" title="Eliminar {{artist.name}}">delete_outline</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

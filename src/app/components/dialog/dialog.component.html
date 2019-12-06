@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Añadir relación</h2>
+<div mat-dialog-content>
+    <select [(ngModel)]="selectedValue">
+      <option value="0" selected>-- Seleccione --</option>
+      <option *ngFor="let val of data.content" value={{val.id}}>{{val.name}}</option>
+    </select>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close [mat-dialog-close]=null>Cancelar</button>
+  <button mat-button mat-dialog-close [mat-dialog-close]="selectedValue">Guardar</button>
+</div>

@@ -1,1 +1,147 @@
-/* You can add global styles to this file, and also import other style files */
+/* General stye */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+h1 { color: purple; }
+
+* {
+  box-sizing: border-box;
+}
+
+/* General form style */
+label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  border-radius: 25px;
+  border: none;
+  margin-top: 10px;
+  padding: 15px;
+  outline: none;
+  font-size: 1.2em;
+}
+
+input[type="submit"] {
+  background-color: #d79abc;
+  font-weight: bold;
+  color: purple;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.input-form-error { color: red !important; }
+
+/* Columns style */
+.row {
+  display: table;
+  width: 100%;
+  height: 100vh;
+}
+
+.column {
+  display: table-cell;
+  padding: 10px 15px;
+  vertical-align: top;
+}
+
+.left {
+  width: 350px;
+  background-color: #9fdfcd;
+}
+
+.right {
+  background-color: #dcffcc;
+  overflow-y: scroll;
+}
+
+/* Box list */
+.box-list {
+  width: 100%;
+  margin-bottom: 10px;
+  display: table;
+}
+
+.box-list:hover {
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(183,248,219,0.6601015406162465) 26%, rgba(80,167,194,0.09987745098039214) 73%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(183,248,219,0.6601015406162465) 26%, rgba(80,167,194,0.09987745098039214) 73%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(183,248,219,0.6601015406162465) 26%, rgba(80,167,194,0.09987745098039214) 73%, rgba(255,255,255,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
+}
+
+.box-list div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.box-list .avatar { width: 50px; }
+.box-list .avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.box-list .content { padding: 5px 20px; }
+.box-list .content div { display: block; vertical-align: top; }
+
+.box-list .content .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.box-list .content .mini-box {
+  display: inline-block;
+  font-size: 0.7em;
+  color: purple;
+  margin: 0 5px 3px 0;
+  padding: 1px 20px;
+  border: none;
+  border-radius: 10px;
+  position: relative;
+}
+
+.box-list .content div i {
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.box-list .content i.member { color: #3c6f9c; }
+.box-list .content i.style { color: #dd6892; }
+.box-list .content i.artist { color: #f9c6ba; }
+
+.box-list .content .mini-box i {
+  font-size: 1.5em;
+  color: #e60000;
+  position: absolute;
+  top: 0;
+  right: -6px;
+  cursor: pointer;
+  display: none;
+}
+
+.box-list .content .mini-box:hover i {
+  display: inline;
+}
+
+.box-list .content .mini-box.member {
+  background-color: #3c6f9c;
+  color: white;
+}
+
+.box-list .content .mini-box.style {
+  background-color: #dd6892;
+  color: white;
+}
+
+.box-list .content .mini-box.artist {
+  background-color: #f9c6ba;
+  color: #1a2849;
+}
+
+.box-list .options { width: 30px; }
+.box-list .options i { cursor: pointer; display: block; }
+.box-list .options i:nth-child(1) { color: green; }
+.box-list .options i:nth-child(2) { color: #b30000; }

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="column left">
+    <h1>Miembros</h1>
+
+    <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+      <label>
+        Nombre:
+        <input type="text" formControlName="name"/>
+        <div *ngIf="isSubmitted && memberForm.controls.name.errors" class="input-form-error">
+          <div *ngIf="memberForm.controls.name.errors.required">Nombre es requerido</div>
+        </div>
+      </label>
+      
+      <label>
+        Años:
+        <input type="text" formControlName="years"/>
+        <div *ngIf="isSubmitted && memberForm.controls.years.errors" class="input-form-error">
+            <div *ngIf="memberForm.controls.years.errors.required">Años son requeridos</div>
+            <div *ngIf="memberForm.controls.years.errors.pattern">Campo debe ser numérico</div>
+        </div>
+      </label>
+
+      <input type="submit" value="Guardar"/>
+    </form>
+  </div>
+
+  <div class="column right">
+    <app-menu></app-menu>
+    <div *ngIf="memberList">
+      <div class="box-list" *ngFor="let member of memberList.content">
+        <div class="avatar"><img src="../../../assets/images/member.png"/></div>
+        <div class="content">
+          <div class="title">{{member.name}} <span *ngIf="member.years">{{member.years}} años</span></div>
+        </div>
+        <div class="options">
+          <i class="material-icons" (click)="editMember(member)" title="Editar {{member.name}}">edit</i>
+          <i class="material-icons" (click)="deleteMember(member)" title="Eliminar {{member.name}}">delete_outline</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
