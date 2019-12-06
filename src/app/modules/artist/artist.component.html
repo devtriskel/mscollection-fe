@@ -22,20 +22,37 @@
 
       <input type="submit" value="Guardar"/>
     </form>
-
-    <div *ngIf="isSuccess">Datos guardados!</div>
   </div>
 
   <div class="column right">
+    <app-menu></app-menu>
     <div *ngIf="artistList">
       <div class="box-list" *ngFor="let artist of artistList.content">
-        <div class="avatar"><img src="../../../assets/images/avatar.png"/></div>
-        <div class="content">
-          <p class="title">{{artist.name}} ({{artist.year}})</p>
+        <div class="avatar"><img src="../../../assets/images/music.png"/></div>
+        <div class="content">          
+          <div class="title">{{artist.name}} <span>({{artist.year}})</span></div>
+          <div>
+            <i class="material-icons member" (click)="addRelatedMember(artist.id)" title="Añadir miembro a {{artist.name}}">add_circle</i>
+            <div class="mini-box member" *ngFor="let member of artistMembers?.get(artist.id)">
+              {{member.name}} <i class="material-icons" (click)="deleteRelatedMember(artist.id, member.id)" title="Eliminar {{member.name}} de {{artist.name}}">remove_circle</i>
+            </div>
+          </div>
+          <div>
+            <i class="material-icons style" (click)="addRelatedStyle(artist.id)" title="Añadir estilo a {{artist.name}}">add_circle</i>
+            <div class="mini-box style" *ngFor="let style of artistStyles?.get(artist.id)">
+              {{style.name}} <i class="material-icons" (click)="deleteRelatedStyle(artist.id, style.id)" title="Eliminar {{style.name}} de {{artist.name}}">remove_circle</i>
+            </div>
+          </div>
+          <div>
+            <i class="material-icons artist" (click)="addRelatedArtist(artist.id)" title="Añadir artista relacionado a {{artist.name}}">add_circle</i>
+            <div class="mini-box artist" *ngFor="let related of artistRelated?.get(artist.id)">
+              {{related.name}} <i class="material-icons" (click)="deleteRelatedArtist(artist.id, related.id)" title="Eliminar {{related.name}} como relacionado a {{artist.name}}">remove_circle</i>
+            </div>
+          </div>
         </div>
         <div class="options">
-          <i class="material-icons" (click)="editArtist(artist)" title="Editar">edit</i>
-          <i class="material-icons" (click)="deleteArtist(artist)" title="Eliminar">delete_outline</i>
+          <i class="material-icons" (click)="editArtist(artist)" title="Editar {{artist.name}}">edit</i>
+          <i class="material-icons" (click)="deleteArtist(artist)" title="Eliminar {{artist.name}}">delete_outline</i>
         </div>
       </div>
     </div>

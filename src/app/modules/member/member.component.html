@@ -22,20 +22,19 @@
 
       <input type="submit" value="Guardar"/>
     </form>
-
-    <div *ngIf="isSuccess">Datos guardados!</div>
   </div>
 
   <div class="column right">
+    <app-menu></app-menu>
     <div *ngIf="memberList">
       <div class="box-list" *ngFor="let member of memberList.content">
         <div class="avatar"><img src="../../../assets/images/member.png"/></div>
         <div class="content">
-          <p class="title">{{member.name}} ({{member.years}})</p>
+          <div class="title">{{member.name}} <span *ngIf="member.years">{{member.years}} años</span></div>
         </div>
         <div class="options">
-          <i class="material-icons" (click)="editMember(member)" title="Editar">edit</i>
-          <i class="material-icons" (click)="deleteMember(member)" title="Eliminar">delete_outline</i>
+          <i class="material-icons" (click)="editMember(member)" title="Editar {{member.name}}">edit</i>
+          <i class="material-icons" (click)="deleteMember(member)" title="Eliminar {{member.name}}">delete_outline</i>
         </div>
       </div>
     </div>

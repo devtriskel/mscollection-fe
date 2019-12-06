@@ -44,6 +44,7 @@ input[type="submit"] {
 .column {
   display: table-cell;
   padding: 10px 15px;
+  vertical-align: top;
 }
 
 .left {
@@ -78,14 +79,69 @@ input[type="submit"] {
 
 .box-list .avatar { width: 50px; }
 .box-list .avatar img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 
-.box-list .content { padding: 0 20px; }
+.box-list .content { padding: 5px 20px; }
+.box-list .content div { display: block; vertical-align: top; }
 
-.box-list .options { width: 50px; }
-.box-list .options i { cursor: pointer; }
+.box-list .content .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.box-list .content .mini-box {
+  display: inline-block;
+  font-size: 0.7em;
+  color: purple;
+  margin: 0 5px 3px 0;
+  padding: 1px 20px;
+  border: none;
+  border-radius: 10px;
+  position: relative;
+}
+
+.box-list .content div i {
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.box-list .content i.member { color: #3c6f9c; }
+.box-list .content i.style { color: #dd6892; }
+.box-list .content i.artist { color: #f9c6ba; }
+
+.box-list .content .mini-box i {
+  font-size: 1.5em;
+  color: #e60000;
+  position: absolute;
+  top: 0;
+  right: -6px;
+  cursor: pointer;
+  display: none;
+}
+
+.box-list .content .mini-box:hover i {
+  display: inline;
+}
+
+.box-list .content .mini-box.member {
+  background-color: #3c6f9c;
+  color: white;
+}
+
+.box-list .content .mini-box.style {
+  background-color: #dd6892;
+  color: white;
+}
+
+.box-list .content .mini-box.artist {
+  background-color: #f9c6ba;
+  color: #1a2849;
+}
+
+.box-list .options { width: 30px; }
+.box-list .options i { cursor: pointer; display: block; }
 .box-list .options i:nth-child(1) { color: green; }
 .box-list .options i:nth-child(2) { color: #b30000; }

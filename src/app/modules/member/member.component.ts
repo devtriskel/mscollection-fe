@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 
 import { MemberApiService } from '../../services/api/member-api.service';
 import { Members } from 'src/app/models/member/members.model';
+import { Member } from 'src/app/models/member/member.model';
 import { MemberRQ } from 'src/app/models/member/member-rq.model';
 
 @Component({
@@ -35,6 +36,7 @@ export class MemberComponent implements OnInit {
     this.getAllMembers();
   }
 
+  // Submit event create or update a member
   onSubmit() {
     this.isSubmitted = true;
 
@@ -45,12 +47,14 @@ export class MemberComponent implements OnInit {
     this.isSuccess = this.saveMember(this.memberForm);
   }
 
+  // Search members from database (overload control on jpa)
   getAllMembers() {
     this.memberApi.getAllMembers().subscribe(data => {
       this.memberList = data;
     });
   }
 
+  // Create or update a member
   saveMember(form: FormGroup) {
     let memberRq: MemberRQ = {
       id: form.controls.id.value,
@@ -61,7 +65,7 @@ export class MemberComponent implements OnInit {
     this.memberApi.saveMember(memberRq).subscribe(data => {
       if (data != null && data.id != null) {
         this.getAllMembers();
-        this.clearForm();
+        this.resetForm();
 
         return true;
       }
@@ -70,24 +74,26 @@ export class MemberComponent implements OnInit {
     return false;
   }
 
-  editMember(e) {
-    this.memberForm.get('id').setValue(e.id);
-    this.memberForm.get('name').setValue(e.name);
-    this.memberForm.get('years').setValue(e.years);    
+  // Edit member just load his info back to the form
+  editMember(member: Member) {
+    this.memberForm.get('id').setValue(member.id);
+    this.memberForm.get('name').setValue(member.name);
+    this.memberForm.get('years').setValue(member.years);    
   }
 
-  deleteMember(e) {
-    this.memberApi.deleteMember(e.id).subscribe(data => {
+  // Delete a member
+  deleteMember(member: Member) {
+    this.memberApi.deleteMember(member.id).subscribe(() => {
       this.getAllMembers();
-        return true;
-      }, error => {
-        return false;
-      });
 
-    return false;
+      return true;
+    }, error => {
+      return false;
+    });
   }
 
-  clearForm() {
+  // Clear form and controls after any succeeded process
+  resetForm() {
     let control: AbstractControl = null;
 
     this.memberForm.reset();

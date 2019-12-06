@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 
 import { StyleApiService } from '../../services/api/style-api.service';
 import { Styles } from 'src/app/models/style/styles.model';
+import { Style } from 'src/app/models/style/style.model';
 import { StyleRQ } from 'src/app/models/style/style-rq.model';
 
 @Component({
@@ -34,6 +35,7 @@ export class StyleComponent implements OnInit {
     this.getAllStyles();
   }
 
+  // Submit event create or update a style
   onSubmit() {
     this.isSubmitted = true;
 
@@ -44,12 +46,14 @@ export class StyleComponent implements OnInit {
     this.isSuccess = this.saveStyle(this.styleForm);
   }
 
+  // Search styles from database (overload control on jpa)
   getAllStyles() {
     this.styleApi.getAllStyles().subscribe(data => {
       this.styleList = data;
     });
   }
 
+  // Create or update a style
   saveStyle(form: FormGroup) {
     let styleRq: StyleRQ = {
       id: form.controls.id.value,
@@ -59,7 +63,7 @@ export class StyleComponent implements OnInit {
     this.styleApi.saveStyle(styleRq).subscribe(data => {
       if (data != null && data.id != null) {
         this.getAllStyles();
-        this.clearForm();
+        this.resetForm();
 
         return true;
       }
@@ -68,23 +72,24 @@ export class StyleComponent implements OnInit {
     return false;
   }
 
-  editStyle(e) {
-    this.styleForm.get('id').setValue(e.id);
-    this.styleForm.get('name').setValue(e.name);   
+  // Edit style just load his info back to the form
+  editStyle(style: Style) {
+    this.styleForm.get('id').setValue(style.id);
+    this.styleForm.get('name').setValue(style.name);   
   }
 
-  deleteStyle(e) {
-    this.styleApi.deleteStyle(e.id).subscribe(data => {
+  // Delete a style
+  deleteStyle(style: Style) {
+    this.styleApi.deleteStyle(style.id).subscribe(() => {
       this.getAllStyles();
-        return true;
-      }, error => {
-        return false;
-      });
-
-    return false;
+      return true;
+    }, error => {
+      return false;
+    });
   }
 
-  clearForm() {
+  // Clear form and controls after any succeeded process
+  resetForm() {
     let control: AbstractControl = null;
 
     this.styleForm.reset();

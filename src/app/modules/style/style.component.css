@@ -1,20 +1,20 @@
-h1, label, input[type="submit"], .right {
-  color: #e9b5d2;
-}
+h1, label, input[type="submit"], .right { color: #e9b5d2; }
 
-input[type="text"] {
-  color: #000;
-}
+input[type="text"] { color: #000; }
 
 input[type="submit"] {
   background-color: #951556;
   color: #e9b5d2;
 }
 
-.left {
-  background-color: #35013f;
-}
+.left { background-color: #35013f; }
 
-.right {
-  background-color: #561050;
+.right { background-color: #561050; }
+
+.box-list:hover {
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(202,183,248,0.32396708683473385) 50%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(202,183,248,0.32396708683473385) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(202,183,248,0.32396708683473385) 50%, rgba(255,255,255,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
 }

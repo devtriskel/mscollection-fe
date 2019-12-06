@@ -8,10 +8,11 @@ import { environment } from '../../../environments/environment';
 import { Artists } from '../../models/artist/artists.model';
 import { ArtistRQ } from 'src/app/models/artist/artist-rq.model';
 import { ArtistRS } from 'src/app/models/artist/artist-rs.model';
+import { Members } from 'src/app/models/member/members.model';
+import { Styles } from 'src/app/models/style/styles.model';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+const httpOptions = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+const httpOptionsUri = {headers: new HttpHeaders({ 'Content-Type': 'text/uri-list' })};
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class ArtistApiService {
       )
   }
 
+  // Create and update
   saveArtist(artistRq: ArtistRQ): any {
     if (artistRq.id == null) {
       return this.saveNewArtist(artistRq);
@@ -55,6 +57,96 @@ export class ArtistApiService {
   deleteArtist(id: number) {
     return this.http.delete(environment.apiArtists + '/' + id, httpOptions)
       .pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  // Get related fields
+  getRelatedMembers(id: number) {
+    return this.http.get<Members>(environment.apiArtistsRelatedMembers.replace('{artistId}', id.toString()))
+      .pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  getRelatedStyles(id: number) {
+    return this.http.get<Styles>(environment.apiArtistsRelatedStyles.replace('{artistId}', id.toString()))
+      .pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  getRelatedArtists(id: number) {
+    return this.http.get<Artists>(environment.apiArtistsRelatedArtists.replace('{artistId}', id.toString()))
+      .pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  // Add new associations
+  addRelatedMember(artistId: number, memberId: number) {
+    return this.http.patch(
+        environment.apiArtistsRelatedMembers.replace('{artistId}', artistId.toString()),
+        environment.apiMembers + "/" + memberId,
+        httpOptionsUri
+      ).pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  addRelatedStyle(artistId: number, styleId: number) {
+    return this.http.patch(
+        environment.apiArtistsRelatedStyles.replace('{artistId}', artistId.toString()),
+        environment.apiStyles + "/" + styleId,
+        httpOptionsUri
+      ).pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  addRelatedArtist(artistId: number, relatedToArtistsId: number) {
+    return this.http.patch(
+        environment.apiArtistsRelatedArtists.replace('{artistId}', artistId.toString()),
+        environment.apiArtists + "/" + relatedToArtistsId,
+        httpOptionsUri
+      ).pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  // Delete associations
+  deleteRelatedMember(artistId: number, memberId: number) {
+    return this.http.delete(environment.apiArtistsDeleteRelatedMember
+        .replace('{artistId}', artistId.toString())
+        .replace('{memberId}', memberId.toString())
+      ).pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  deleteRelatedStyle(artistId: number, styleId: number) {
+    return this.http.delete(environment.apiArtistsDeleteRelatedStyle
+        .replace('{artistId}', artistId.toString())
+        .replace('{styleId}', styleId.toString())
+      ).pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  deleteRelatedArtist(artistId: number, relatedToArtistsId: number) {
+    return this.http.delete(environment.apiArtistsDeleteRelatedArtist
+        .replace('{artistId}', artistId.toString())
+        .replace('{relatedToArtistsId}', relatedToArtistsId.toString())
+      ).pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)
       )

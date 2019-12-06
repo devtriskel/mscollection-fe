@@ -13,20 +13,19 @@
 
       <input type="submit" value="Guardar"/>
     </form>
-
-    <div *ngIf="isSuccess">Datos guardados!</div>
   </div>
 
   <div class="column right">
+    <app-menu></app-menu>
     <div *ngIf="styleList">
       <div class="box-list" *ngFor="let style of styleList.content">
         <div class="avatar"><img src="../../../assets/images/style.png"/></div>
         <div class="content">
-          <p class="title">{{style.name}}</p>
+          <div class="title">{{style.name}}</div>
         </div>
         <div class="options">
-          <i class="material-icons" (click)="editStyle(style)" title="Editar">edit</i>
-          <i class="material-icons" (click)="deleteStyle(style)" title="Eliminar">delete_outline</i>
+          <i class="material-icons" (click)="editStyle(style)" title="Editar {{style.name}}">edit</i>
+          <i class="material-icons" (click)="deleteStyle(style)" title="Eliminar {{style.name}}">delete_outline</i>
         </div>
       </div>
     </div>
