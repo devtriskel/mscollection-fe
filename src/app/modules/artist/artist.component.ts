@@ -138,11 +138,13 @@ export class ArtistComponent implements OnInit {
 
   // Obtain data relations for an artist and save it into arrays
   setRelatedInfo(artistId: number) {
-    this.clear();
+    if (artistId != null) {
+      this.clear();
 
-    this.getArtistRelatedArtists(artistId);
-    this.getArtistRelatedStyles(artistId);
-    this.getArtistRelatedMembers(artistId);
+      this.getArtistRelatedArtists(artistId);
+      this.getArtistRelatedStyles(artistId);
+      this.getArtistRelatedMembers(artistId);
+    }
   }
 
   // Add new artist association to artist
@@ -236,7 +238,7 @@ export class ArtistComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogComponent, {data: info});
 
     dialogRef.afterClosed().subscribe(id => {
-      if (id != null && option == 'artist') {
+      if (id != null && id != "" && option == 'artist') {
         this.artistApi.addRelatedArtist(artistId, id).subscribe(() => {
           this.toastr.success(this.savedLabel[1]);
           this.getArtistRelatedArtists(artistId);
@@ -245,7 +247,7 @@ export class ArtistComponent implements OnInit {
         });
       }
 
-      if (id != null && option == 'style') {
+      if (id != null && id != "" && option == 'style') {
         this.artistApi.addRelatedStyle(artistId, id).subscribe(() => {
           this.toastr.success(this.savedLabel[1]);
           this.getArtistRelatedStyles(artistId);
@@ -254,7 +256,7 @@ export class ArtistComponent implements OnInit {
         });
       }
 
-      if (id != null && option == 'member') {
+      if (id != null && id != "" && option == 'member') {
         this.artistApi.addRelatedMember(artistId, id).subscribe(() => {
           this.toastr.success(this.savedLabel[1]);
           this.getArtistRelatedMembers(artistId);

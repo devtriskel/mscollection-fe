@@ -119,6 +119,18 @@ button.cancel {
   position: relative;
 }
 
+.box-list .content .no-related-items {
+  display: inline-block !important;
+  font-size: 0.7em;
+  font-style: italic;
+  margin: 0;
+  padding: 3px 0 0 0;
+  border: none;
+}
+
+.no-records { margin-top: 50px; text-align: center; color: purple; }
+.no-records i { font-size: 3em; }
+
 .box-list .content div i {
   font-size: 1.1em;
   cursor: pointer;
@@ -158,7 +170,7 @@ button.cancel {
 }
 
 .box-list .options { width: 30px; }
-.box-list .options i { cursor: pointer; display: block; }
+.box-list .options i { cursor: pointer; display: block; margin-right: 10px; }
 .box-list .options i:nth-child(1) { color: green; }
 .box-list .options i:nth-child(2) { color: #b30000; }
 

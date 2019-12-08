@@ -28,16 +28,22 @@
   <div class="column right">
     <app-menu></app-menu>
     <div *ngIf="memberList" class="box-scroll">
-      <div class="box-list" *ngFor="let member of memberList.content">
-        <div class="avatar"><img src="../../../assets/images/member.png"/></div>
-        <div class="content">
-          <div class="title">{{member.name}} <span *ngIf="member.years">{{member.years}} años</span></div>
+      <ng-container *ngFor="let member of memberList.content">
+        <div *ngIf="member.id" class="box-list">
+          <div class="avatar"><img src="../../../assets/images/member.png"/></div>
+          <div class="content">
+            <div class="title">{{member.name}} <span *ngIf="member.years">{{member.years}} años</span></div>
+          </div>
+          <div class="options">
+            <i class="material-icons" (click)="editMember(member)" title="Editar {{member.name}}">edit</i>
+            <i class="material-icons" (click)="deleteMember(member)" title="Eliminar {{member.name}}">delete_outline</i>
+          </div>
         </div>
-        <div class="options">
-          <i class="material-icons" (click)="editMember(member)" title="Editar {{member.name}}">edit</i>
-          <i class="material-icons" (click)="deleteMember(member)" title="Eliminar {{member.name}}">delete_outline</i>
+        <div *ngIf="!member.id" class="no-records">
+            <i class="material-icons">error_outline</i>
+            <div>Ups!, no se han encontrado registros.</div>
         </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>

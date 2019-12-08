@@ -24,3 +24,5 @@ button.cancel {
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(202,183,248,0.32396708683473385) 50%, rgba(255,255,255,0) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
 }
+
+.no-records { color: #e9b5d2; }

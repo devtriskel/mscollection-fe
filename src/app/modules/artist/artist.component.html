@@ -37,34 +37,49 @@
     </div>
 
     <div *ngIf="artistList" class="box-scroll">
-      <div class="box-list" *ngFor="let artist of artistList.content">
-        <div class="avatar"><img src="../../../assets/images/music.png"/></div>
-        <div class="content">          
-          <div class="title">{{artist.name}} <span>({{artist.year}})</span></div>
-          <div>
-            <i class="material-icons member" (click)="addRelatedMember(artist.id)" title="Añadir miembro a {{artist.name}}">add_circle</i>
-            <div class="mini-box member" *ngFor="let member of artistMembers?.get(artist.id)">
-              {{member.name}} <i class="material-icons" (click)="deleteRelatedMember(artist.id, member.id)" title="Eliminar {{member.name}} de {{artist.name}}">remove_circle</i>
+      <ng-container *ngFor="let artist of artistList.content">
+        <div *ngIf="artist.id" class="box-list">
+          <div class="avatar"><img src="../../../assets/images/music.png"/></div>
+          <div class="content">          
+            <div class="title">{{artist.name}} <span>({{artist.year}})</span></div>
+            <div>
+              <i class="material-icons member" (click)="addRelatedMember(artist.id)" title="Añadir miembro a {{artist.name}}">add_circle</i>
+              <ng-container *ngFor="let member of artistMembers?.get(artist.id)">
+                <div *ngIf="member.id" class="mini-box member">
+                  {{member.name}} <i class="material-icons" (click)="deleteRelatedMember(artist.id, member.id)" title="Eliminar {{member.name}} de {{artist.name}}">remove_circle</i>
+                </div>
+                <div *ngIf="!member.id" class="no-related-items">Sin miembros</div>
+              </ng-container>
+            </div>
+            <div>
+              <i class="material-icons style" (click)="addRelatedStyle(artist.id)" title="Añadir estilo a {{artist.name}}">add_circle</i>
+              <ng-container *ngFor="let style of artistStyles?.get(artist.id)">
+                <div *ngIf="style.id" class="mini-box style">
+                  {{style.name}} <i class="material-icons" (click)="deleteRelatedStyle(artist.id, style.id)" title="Eliminar {{style.name}} de {{artist.name}}">remove_circle</i>
+                </div>
+                <div *ngIf="!style.id" class="no-related-items">Sin estilos</div>
+              </ng-container>
+            </div>
+            <div>
+              <i class="material-icons artist" (click)="addRelatedArtist(artist.id)" title="Añadir artista relacionado a {{artist.name}}">add_circle</i>
+              <ng-container *ngFor="let related of artistRelated?.get(artist.id)">
+                <div *ngIf="related.id" class="mini-box artist">
+                  {{related.name}} <i class="material-icons" (click)="deleteRelatedArtist(artist.id, related.id)" title="Eliminar {{related.name}} como relacionado a {{artist.name}}">remove_circle</i>
+                </div>
+                <div *ngIf="!related.id" class="no-related-items">Sin artistas relacionados</div>
+              </ng-container>
             </div>
           </div>
-          <div>
-            <i class="material-icons style" (click)="addRelatedStyle(artist.id)" title="Añadir estilo a {{artist.name}}">add_circle</i>
-            <div class="mini-box style" *ngFor="let style of artistStyles?.get(artist.id)">
-              {{style.name}} <i class="material-icons" (click)="deleteRelatedStyle(artist.id, style.id)" title="Eliminar {{style.name}} de {{artist.name}}">remove_circle</i>
-            </div>
-          </div>
-          <div>
-            <i class="material-icons artist" (click)="addRelatedArtist(artist.id)" title="Añadir artista relacionado a {{artist.name}}">add_circle</i>
-            <div class="mini-box artist" *ngFor="let related of artistRelated?.get(artist.id)">
-              {{related.name}} <i class="material-icons" (click)="deleteRelatedArtist(artist.id, related.id)" title="Eliminar {{related.name}} como relacionado a {{artist.name}}">remove_circle</i>
-            </div>
+          <div class="options">
+            <i class="material-icons" (click)="editArtist(artist)" title="Editar {{artist.name}}">edit</i>
+            <i class="material-icons" (click)="deleteArtist(artist)" title="Eliminar {{artist.name}}">delete_outline</i>
           </div>
         </div>
-        <div class="options">
-          <i class="material-icons" (click)="editArtist(artist)" title="Editar {{artist.name}}">edit</i>
-          <i class="material-icons" (click)="deleteArtist(artist)" title="Eliminar {{artist.name}}">delete_outline</i>
+        <div *ngIf="!artist.id" class="no-records">
+            <i class="material-icons">error_outline</i>
+            <div>Ups!, no se han encontrado registros.</div>
         </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>
