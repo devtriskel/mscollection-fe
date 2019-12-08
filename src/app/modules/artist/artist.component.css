@@ -7,14 +7,3 @@
   color: purple;
   font-weight: bold;
 }
-
-select {
-  display: block;
-  margin-top: 5px;
-  padding: 5px;
-  height: 30px;
-  border-radius: 13px;
-  outline: none;
-  font-size: 1em;
-  border: 1px solid #9fdfcd;
-}

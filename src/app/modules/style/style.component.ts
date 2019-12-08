@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 import { StyleApiService } from '../../services/api/style-api.service';
 import { Styles } from 'src/app/models/style/styles.model';
@@ -19,10 +20,15 @@ export class StyleComponent implements OnInit {
   isSuccess: boolean;
   styleList: Styles;
 
+  saveLabel: string = 'Guardar';
+  savedLabel: string[] = ['Error al guardar', 'Guardado con éxito'];
+  deletedLabel: string[] = ['Error al eliminar', 'Eliminado con éxito'];
+
   constructor(
     private formBuilder: FormBuilder,
     private styleApi: StyleApiService,
-    private title: Title
+    private title: Title,
+    private toastr: ToastrService
   ) { 
     this.styleForm = this.formBuilder.group({
       id: null,
@@ -47,7 +53,7 @@ export class StyleComponent implements OnInit {
       return;
     }
 
-    this.isSuccess = this.saveStyle(this.styleForm);
+    this.saveStyle(this.styleForm);
   }
 
   // Search styles from database (overload control on jpa)
@@ -66,42 +72,39 @@ export class StyleComponent implements OnInit {
 
     this.styleApi.saveStyle(styleRq).subscribe(data => {
       if (data != null && data.id != null) {
+        this.toastr.success(this.savedLabel[1]);
         this.getAllStyles();
         this.resetForm();
-
-        return true;
+      } else{
+        this.toastr.error(this.savedLabel[0]);
+        this.isSuccess = false;
       }
     });
-
-    return false;
   }
 
   // Edit style just load his info back to the form
   editStyle(style: Style) {
+    this.saveLabel = 'Actualizar';
     this.styleForm.get('id').setValue(style.id);
-    this.styleForm.get('name').setValue(style.name);   
+    this.styleForm.get('name').setValue(style.name);
   }
 
   // Delete a style
   deleteStyle(style: Style) {
     this.styleApi.deleteStyle(style.id).subscribe(() => {
+      this.toastr.success(this.deletedLabel[1]);
       this.getAllStyles();
-      return true;
     }, error => {
-      return false;
+      this.toastr.error(this.deletedLabel[0]);
     });
   }
 
   // Clear form and controls after any succeeded process
   resetForm() {
-    let control: AbstractControl = null;
-
+    this.saveLabel = 'Guardar';
+    this.isSubmitted = false;
+    this.isSuccess = false;
     this.styleForm.reset();
-    this.styleForm.markAsUntouched();
-    Object.keys(this.styleForm.controls).forEach((name) => {
-      control = this.styleForm.controls[name];
-      control.setErrors(null);
-    });
   }
 
 }

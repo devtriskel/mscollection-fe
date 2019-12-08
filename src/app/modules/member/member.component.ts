@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 import { MemberApiService } from '../../services/api/member-api.service';
 import { Members } from 'src/app/models/member/members.model';
@@ -19,10 +20,15 @@ export class MemberComponent implements OnInit {
   isSuccess: boolean;
   memberList: Members;
 
+  saveLabel: string = 'Guardar';
+  savedLabel: string[] = ['Error al guardar', 'Guardado con éxito'];
+  deletedLabel: string[] = ['Error al eliminar', 'Eliminado con éxito'];
+
   constructor(
     private formBuilder: FormBuilder,
     private memberApi: MemberApiService,
-    private title: Title
+    private title: Title,
+    private toastr: ToastrService
   ) { 
     this.memberForm = this.formBuilder.group({
       id: null,
@@ -48,7 +54,7 @@ export class MemberComponent implements OnInit {
       return;
     }
 
-    this.isSuccess = this.saveMember(this.memberForm);
+    this.saveMember(this.memberForm);
   }
 
   // Search members from database (overload control on jpa)
@@ -68,44 +74,40 @@ export class MemberComponent implements OnInit {
 
     this.memberApi.saveMember(memberRq).subscribe(data => {
       if (data != null && data.id != null) {
+        this.toastr.success(this.savedLabel[1]);
         this.getAllMembers();
         this.resetForm();
-
-        return true;
+      } else{
+        this.toastr.error(this.savedLabel[0]);
+        this.isSuccess = false;
       }
     });
-
-    return false;
   }
 
   // Edit member just load his info back to the form
   editMember(member: Member) {
+    this.saveLabel = 'Actualizar';
     this.memberForm.get('id').setValue(member.id);
     this.memberForm.get('name').setValue(member.name);
-    this.memberForm.get('years').setValue(member.years);    
+    this.memberForm.get('years').setValue(member.years);
   }
 
   // Delete a member
   deleteMember(member: Member) {
     this.memberApi.deleteMember(member.id).subscribe(() => {
+      this.toastr.success(this.deletedLabel[1]);
       this.getAllMembers();
-
-      return true;
     }, error => {
-      return false;
+      this.toastr.error(this.deletedLabel[0]);
     });
   }
 
   // Clear form and controls after any succeeded process
   resetForm() {
-    let control: AbstractControl = null;
-
+    this.saveLabel = 'Guardar';
+    this.isSubmitted = false;
+    this.isSuccess = false;
     this.memberForm.reset();
-    this.memberForm.markAsUntouched();
-    Object.keys(this.memberForm.controls).forEach((name) => {
-      control = this.memberForm.controls[name];
-      control.setErrors(null);
-    });
   }
 
 }
