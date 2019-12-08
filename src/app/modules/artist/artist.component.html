@@ -20,7 +20,8 @@
         </div>
       </label>
 
-      <input type="submit" value="Guardar"/>
+      <input type="submit" value="{{saveLabel}}"/>
+      <button *ngIf="saveLabel != 'Guardar'" class="cancel" (click)="resetForm()">Cancelar</button>
     </form>
   </div>
 
@@ -35,7 +36,7 @@
       </select>
     </div>
 
-    <div *ngIf="artistList">
+    <div *ngIf="artistList" class="box-scroll">
       <div class="box-list" *ngFor="let artist of artistList.content">
         <div class="avatar"><img src="../../../assets/images/music.png"/></div>
         <div class="content">          

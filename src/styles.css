@@ -1,3 +1,5 @@
+@import './assets/css/ngx-toastr.css';
+
 /* General stye */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -13,7 +15,7 @@ label {
   margin-bottom: 20px;
 }
 
-input {
+input, button {
   display: block;
   width: 100%;
   border-radius: 25px;
@@ -29,6 +31,15 @@ input[type="submit"] {
   font-weight: bold;
   color: purple;
   margin-top: 40px;
+  cursor: pointer;
+}
+
+button.cancel {
+  background-color: #9fdfcd;
+  border: 2px solid #d79abc;
+  font-weight: bold;
+  color: #d79abc;
+  margin-top: 10px;
   cursor: pointer;
 }
 
@@ -58,6 +69,11 @@ input[type="submit"] {
 }
 
 /* Box list */
+.box-scroll {
+  overflow-y: scroll;
+  height: calc(100% - 70px);
+}
+
 .box-list {
   width: 100%;
   margin-bottom: 10px;
@@ -145,3 +161,14 @@ input[type="submit"] {
 .box-list .options i { cursor: pointer; display: block; }
 .box-list .options i:nth-child(1) { color: green; }
 .box-list .options i:nth-child(2) { color: #b30000; }
+
+select {
+  display: block;
+  margin-top: 5px;
+  padding: 5px;
+  height: 30px;
+  border-radius: 13px;
+  outline: none;
+  font-size: 1em;
+  border: 1px solid #9fdfcd;
+}

@@ -1,4 +1,10 @@
-input[type="submit"] { background-color: #a5bdfd; }
+input[type="submit"] { background-color: #8cabfc; }
+
+button.cancel {
+  background-color: #dcb5ff;
+  border: 2px solid #8cabfc;
+  color: #8cabfc;
+}
 
 .left { background-color: #dcb5ff; }
 

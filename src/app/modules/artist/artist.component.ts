@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { ArtistApiService } from '../../services/api/artist-api.service';
@@ -35,6 +36,9 @@ export class ArtistComponent implements OnInit {
   artistMembers: Map<number, Member[]> = new Map<number, Member[]>();
 
   selectedStyle: number;
+  saveLabel: string = 'Guardar';
+  savedLabel: string[] = ['Error al guardar', 'Guardado con éxito'];
+  deletedLabel: string[] = ['Error al eliminar', 'Eliminado con éxito'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,7 +46,8 @@ export class ArtistComponent implements OnInit {
     private styleApi: StyleApiService,
     private memberApi: MemberApiService,
     public dialog: MatDialog,
-    private title: Title
+    private title: Title,
+    private toastr: ToastrService
   ) {
     this.artistForm = this.formBuilder.group({
       id: null,
@@ -78,7 +83,7 @@ export class ArtistComponent implements OnInit {
       return;
     }
 
-    this.isSuccess = this.saveArtist(this.artistForm);
+    this.saveArtist(this.artistForm);
   }
 
   // Search artist from database (overload control on jpa)
@@ -103,31 +108,31 @@ export class ArtistComponent implements OnInit {
 
     this.artistApi.saveArtist(artistRq).subscribe(data => {
       if (data != null && data.id != null) {
+        this.toastr.success(this.savedLabel[1]);
         this.searchArtistsByStyleId();
         this.resetForm();
-
-        return true;
+      } else{
+        this.toastr.error(this.savedLabel[0]);
+        this.isSuccess = false;
       }
     });
-
-    return false;
   }
 
   // Edit artist just load his info back to the form
   editArtist(artist: Artist) {
+    this.saveLabel = 'Actualizar';  
     this.artistForm.get('id').setValue(artist.id);
     this.artistForm.get('name').setValue(artist.name);
-    this.artistForm.get('year').setValue(artist.year);    
+    this.artistForm.get('year').setValue(artist.year); 
   }
 
   // Delete an artist
   deleteArtist(artist: Artist) {
     this.artistApi.deleteArtist(artist.id).subscribe(data => {
+      this.toastr.success(this.deletedLabel[1]);
       this.searchArtistsByStyleId();
-
-      return true;
     }, error => {
-      return false;
+      this.toastr.error(this.deletedLabel[0]);
     });
   }
 
@@ -158,21 +163,30 @@ export class ArtistComponent implements OnInit {
   // Delete artist association to artist
   deleteRelatedArtist(artistId: number, relatedArtistId: number) {
     this.artistApi.deleteRelatedArtist(artistId, relatedArtistId).subscribe(data => {
+      this.toastr.success(this.deletedLabel[1]);
       this.getArtistRelatedArtists(artistId);
+    }, error => {
+      this.toastr.error(this.deletedLabel[0]);
     });
   }
 
   // Delete style association to artist
   deleteRelatedStyle(artistId: number, styleId: number) {
     this.artistApi.deleteRelatedStyle(artistId, styleId).subscribe(data => {
+      this.toastr.success(this.deletedLabel[1]);
       this.getArtistRelatedStyles(artistId);
+    }, error => {
+      this.toastr.error(this.deletedLabel[0]);
     });
   }
 
   // Delete member association to artist
   deleteRelatedMember(artistId: number, memberId: number) {
     this.artistApi.deleteRelatedMember(artistId, memberId).subscribe(data => {
+      this.toastr.success(this.deletedLabel[1]);
       this.getArtistRelatedMembers(artistId);
+    }, error => {
+      this.toastr.error(this.deletedLabel[0]);
     });
   }
 
@@ -204,17 +218,10 @@ export class ArtistComponent implements OnInit {
 
   // Clear form and controls after any succeeded process
   resetForm() {
+    this.saveLabel = 'Guardar';
     this.isSubmitted = false;
     this.isSuccess = false;
-
-    let control: AbstractControl = null;
-
     this.artistForm.reset();
-    this.artistForm.markAsUntouched();
-    Object.keys(this.artistForm.controls).forEach((name) => {
-      control = this.artistForm.controls[name];
-      control.setErrors(null);
-    });
   }
 
   // Clean all maps with relations per artists
@@ -231,19 +238,28 @@ export class ArtistComponent implements OnInit {
     dialogRef.afterClosed().subscribe(id => {
       if (id != null && option == 'artist') {
         this.artistApi.addRelatedArtist(artistId, id).subscribe(() => {
+          this.toastr.success(this.savedLabel[1]);
           this.getArtistRelatedArtists(artistId);
+        }, error => {
+          this.toastr.error(this.savedLabel[0]);
         });
       }
 
       if (id != null && option == 'style') {
         this.artistApi.addRelatedStyle(artistId, id).subscribe(() => {
+          this.toastr.success(this.savedLabel[1]);
           this.getArtistRelatedStyles(artistId);
+        }, error => {
+          this.toastr.error(this.savedLabel[0]);
         });
       }
 
       if (id != null && option == 'member') {
         this.artistApi.addRelatedMember(artistId, id).subscribe(() => {
+          this.toastr.success(this.savedLabel[1]);
           this.getArtistRelatedMembers(artistId);
+        }, error => {
+          this.toastr.error(this.savedLabel[0]);
         });
       }
     });

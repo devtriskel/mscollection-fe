@@ -7,6 +7,12 @@ input[type="submit"] {
   color: #e9b5d2;
 }
 
+button.cancel {
+  background-color: #35013f;
+  border: 2px solid #951556;
+  color: #951556;
+}
+
 .left { background-color: #35013f; }
 
 .right { background-color: #561050; }

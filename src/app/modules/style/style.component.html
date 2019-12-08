@@ -11,13 +11,14 @@
         </div>
       </label>
 
-      <input type="submit" value="Guardar"/>
+      <input type="submit" value="{{saveLabel}}"/>
+      <button *ngIf="saveLabel != 'Guardar'" class="cancel" (click)="resetForm()">Cancelar</button>
     </form>
   </div>
 
   <div class="column right">
     <app-menu></app-menu>
-    <div *ngIf="styleList">
+    <div *ngIf="styleList" class="box-scroll">
       <div class="box-list" *ngFor="let style of styleList.content">
         <div class="avatar"><img src="../../../assets/images/style.png"/></div>
         <div class="content">

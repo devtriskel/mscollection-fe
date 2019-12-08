@@ -9,12 +9,12 @@ import { ArtistComponent } from './modules/artist/artist.component';
 import { MemberComponent } from './modules/member/member.component';
 import { StyleComponent } from './modules/style/style.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MenuComponent } from './components/menu/menu.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { MenuComponent } from './components/menu/menu.component';
     HttpClientModule,
     MatIconModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
