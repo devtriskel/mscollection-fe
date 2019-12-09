@@ -26,3 +26,7 @@ button.cancel {
 }
 
 .no-records { color: #e9b5d2; }
+
+::-webkit-scrollbar-track { background: #561050; }
+::-webkit-scrollbar-thumb { background: #35013f; }
+::-webkit-scrollbar-thumb:hover { background: #35013f; }
