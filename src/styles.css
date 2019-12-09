@@ -65,7 +65,6 @@ button.cancel {
 
 .right {
   background-color: #dcffcc;
-  overflow-y: scroll;
 }
 
 /* Box list */
@@ -73,6 +72,11 @@ button.cancel {
   overflow-y: scroll;
   height: calc(100% - 70px);
 }
+
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #dcffcc; }
+::-webkit-scrollbar-thumb { background: #9fdfcd; }
+::-webkit-scrollbar-thumb:hover { background: #9fdfcd; }
 
 .box-list {
   width: 100%;

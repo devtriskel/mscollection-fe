@@ -19,3 +19,7 @@ button.cancel {
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(140,175,251,0.36878501400560226) 50%, rgba(255,255,255,0) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
 }
+
+::-webkit-scrollbar-track { background: #d9f2ff; }
+::-webkit-scrollbar-thumb { background: #dcb5ff; }
+::-webkit-scrollbar-thumb:hover { background: #dcb5ff; }

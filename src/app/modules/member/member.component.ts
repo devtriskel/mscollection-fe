@@ -33,7 +33,7 @@ export class MemberComponent implements OnInit {
     this.memberForm = this.formBuilder.group({
       id: null,
       name: ['', Validators.required],
-      years: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      years: ['', Validators.pattern('^[0-9]*$')]
     });
 
     this.title.setTitle('Miembros | Musify');
