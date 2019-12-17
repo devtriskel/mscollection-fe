@@ -184,7 +184,7 @@ export class ArtistComponent implements OnInit {
 
   // Delete member association to artist
   deleteRelatedMember(artistId: number, memberId: number) {
-    this.artistApi.deleteRelatedMember(artistId, memberId).subscribe(data => {
+    this.memberApi.deleteRelatedArtist(memberId).subscribe(data => {
       this.toastr.success(this.deletedLabel[1]);
       this.getArtistRelatedMembers(artistId);
     }, error => {
@@ -257,9 +257,9 @@ export class ArtistComponent implements OnInit {
       }
 
       if (id != null && id != "" && option == 'member') {
-        this.artistApi.addRelatedMember(artistId, id).subscribe(() => {
+        this.memberApi.addRelatedArtist(id, artistId).subscribe(() => {
           this.toastr.success(this.savedLabel[1]);
-          this.getArtistRelatedMembers(artistId);
+          this.searchArtistsByStyleId();
         }, error => {
           this.toastr.error(this.savedLabel[0]);
         });

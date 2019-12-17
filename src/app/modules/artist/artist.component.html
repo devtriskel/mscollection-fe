@@ -4,7 +4,7 @@
 
     <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
       <label>
-        Artista:
+        Artista
         <input type="text" formControlName="name"/>
         <div *ngIf="isSubmitted && artistForm.controls.name.errors" class="input-form-error">
           <div *ngIf="artistForm.controls.name.errors.required">Nombre es requerido</div>
@@ -12,7 +12,7 @@
       </label>
       
       <label>
-        Año de fundación:
+        Año de fundación
         <input type="text" formControlName="year"/>
         <div *ngIf="isSubmitted && artistForm.controls.year.errors" class="input-form-error">
             <div *ngIf="artistForm.controls.year.errors.required">Año es requerido</div>

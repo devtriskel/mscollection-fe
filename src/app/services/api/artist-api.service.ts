@@ -88,17 +88,6 @@ export class ArtistApiService {
   }
 
   // Add new associations
-  addRelatedMember(artistId: number, memberId: number) {
-    return this.http.patch(
-        environment.apiArtistsRelatedMembers.replace('{artistId}', artistId.toString()),
-        environment.apiMembers + "/" + memberId,
-        httpOptionsUri
-      ).pipe(
-        timeout(environment.timeout),
-        catchError(this.errorHandler)
-      )
-  }
-
   addRelatedStyle(artistId: number, styleId: number) {
     return this.http.patch(
         environment.apiArtistsRelatedStyles.replace('{artistId}', artistId.toString()),
@@ -122,16 +111,6 @@ export class ArtistApiService {
   }
 
   // Delete associations
-  deleteRelatedMember(artistId: number, memberId: number) {
-    return this.http.delete(environment.apiArtistsDeleteRelatedMember
-        .replace('{artistId}', artistId.toString())
-        .replace('{memberId}', memberId.toString())
-      ).pipe(
-        timeout(environment.timeout),
-        catchError(this.errorHandler)
-      )
-  }
-
   deleteRelatedStyle(artistId: number, styleId: number) {
     return this.http.delete(environment.apiArtistsDeleteRelatedStyle
         .replace('{artistId}', artistId.toString())

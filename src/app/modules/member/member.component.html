@@ -4,7 +4,7 @@
 
     <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
       <label>
-        Nombre:
+        Nombre
         <input type="text" formControlName="name"/>
         <div *ngIf="isSubmitted && memberForm.controls.name.errors" class="input-form-error">
           <div *ngIf="memberForm.controls.name.errors.required">Nombre es requerido</div>
@@ -12,12 +12,20 @@
       </label>
       
       <label>
-        Años:
+        Años <span class="lbl-optional">(opcional)</span>
         <input type="text" formControlName="years"/>
         <div *ngIf="isSubmitted && memberForm.controls.years.errors" class="input-form-error">
             <div *ngIf="memberForm.controls.years.errors.required">Años son requeridos</div>
             <div *ngIf="memberForm.controls.years.errors.pattern">Campo debe ser numérico</div>
         </div>
+      </label>
+
+      <label *ngIf="artistList">
+        Artista <span class="lbl-optional">(opcional)</span>
+        <select formControlName="artist">
+          <option value="" selected>-- Seleccione --</option>
+          <option *ngFor="let val of artistList.content" value={{val.id}}>{{val.name}}</option>
+        </select>
       </label>
 
       <input type="submit" value="{{saveLabel}}"/>
@@ -32,10 +40,11 @@
         <div *ngIf="member.id" class="box-list">
           <div class="avatar"><img src="../../../assets/images/member.png"/></div>
           <div class="content">
-            <div class="title">{{member.name}} <span *ngIf="member.years">{{member.years}} años</span></div>
+            <div class="title">{{member.name}} <span *ngIf="member.years">({{member.years}} años)</span></div>
+            <div *ngIf="member.relatedArtist" class="mini-box artist"><em>{{member.relatedArtist.name}}</em></div>
           </div>
           <div class="options">
-            <i class="material-icons" (click)="editMember(member)" title="Editar {{member.name}}">edit</i>
+            <i class="material-icons" (click)="editMember(member, member.relatedArtist?.id)" title="Editar {{member.name}}">edit</i>
             <i class="material-icons" (click)="deleteMember(member)" title="Eliminar {{member.name}}">delete_outline</i>
           </div>
         </div>

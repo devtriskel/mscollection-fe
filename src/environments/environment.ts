@@ -9,12 +9,12 @@ export const environment = {
   apiArtistsRelatedMembers: 'http://localhost:8080/mscollection-api/artists/{artistId}/members',
   apiArtistsRelatedStyles: 'http://localhost:8080/mscollection-api/artists/{artistId}/styles',
   apiArtistsRelatedArtists: 'http://localhost:8080/mscollection-api/artists/{artistId}/relatedToArtists',
-  apiArtistsDeleteRelatedMember: 'http://localhost:8080/mscollection-api/artists/{artistId}/members/{memberId}',
   apiArtistsDeleteRelatedStyle: 'http://localhost:8080/mscollection-api/artists/{artistId}/styles/{styleId}',
   apiArtistsDeleteRelatedArtist: 'http://localhost:8080/mscollection-api/artists/{artistId}/relatedToArtists/{relatedToArtistsId}',
   apiMembers: 'http://localhost:8080/mscollection-api/members',
   apiStyles: 'http://localhost:8080/mscollection-api/styles',
-  apiStylesRelatedArtists: 'http://localhost:8080/mscollection-api/styles/{styleId}/artists'
+  apiStylesRelatedArtists: 'http://localhost:8080/mscollection-api/styles/{styleId}/artists',
+  apiMembersToArtist: 'http://localhost:8080/mscollection-api/members/{memberId}/artist'
 };
 
 /*
