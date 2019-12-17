@@ -22,7 +22,7 @@ export class StyleApiService {
   constructor(private http: HttpClient) { }
 
   getAllStyles() {
-    return this.http.get<Styles>(environment.apiStyles)
+    return this.http.get<Styles>(environment.apiStyles + '?sort=name')
       .pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)
@@ -33,7 +33,7 @@ export class StyleApiService {
     let endpoint = (id == null || id == 0) ?
       environment.apiArtists : environment.apiStylesRelatedArtists.replace('{styleId}', id.toString());
     
-    return this.http.get<Artists>(endpoint)
+    return this.http.get<Artists>(endpoint + '?sort=name')
       .pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)

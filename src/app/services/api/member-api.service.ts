@@ -8,10 +8,10 @@ import { environment } from '../../../environments/environment';
 import { Members } from '../../models/member/members.model';
 import { MemberRQ } from 'src/app/models/member/member-rq.model';
 import { MemberRS } from 'src/app/models/member/member-rs.model';
+import { Artist } from 'src/app/models/artist/artist.model';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+const httpOptions = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+const httpOptionsUri = {headers: new HttpHeaders({ 'Content-Type': 'text/uri-list' })};
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,16 @@ export class MemberApiService {
   constructor(private http: HttpClient) { }
 
   getAllMembers() {
-    return this.http.get<Members>(environment.apiMembers)
+    return this.http.get<Members>(environment.apiMembers + '?sort=name')
       .pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  getRelatedArtist(memberId: number) {
+    return this.http.get<Artist>(environment.apiMembersToArtist.replace('{memberId}', memberId.toString())
+      ).pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)
       )
@@ -45,7 +53,7 @@ export class MemberApiService {
   }
 
   private updateMember(memberRq: MemberRQ) {
-    return this.http.put(environment.apiMembers + '/' + memberRq.id, memberRq, httpOptions)
+    return this.http.patch(environment.apiMembers + '/' + memberRq.id, memberRq, httpOptions)
       .pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)
@@ -55,6 +63,27 @@ export class MemberApiService {
   deleteMember(id: number) {
     return this.http.delete(environment.apiMembers + '/' + id, httpOptions)
       .pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  // Add new associations
+  addRelatedArtist(memberId: number, artistId: number) {
+    return this.http.put(
+        environment.apiMembersToArtist.replace('{memberId}', memberId.toString()),
+        environment.apiArtists + "/" + artistId.toString(),
+        httpOptionsUri
+      ).pipe(
+        timeout(environment.timeout),
+        catchError(this.errorHandler)
+      )
+  }
+
+  // Delete associations
+  deleteRelatedArtist(memberId: number) {
+    return this.http.delete(environment.apiMembersToArtist.replace('{memberId}', memberId.toString())
+      ).pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)
       )

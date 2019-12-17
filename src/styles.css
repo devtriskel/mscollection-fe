@@ -15,6 +15,11 @@ label {
   margin-bottom: 20px;
 }
 
+.lbl-optional {
+  font-style: italic;
+  font-size: 0.6em;
+}
+
 input, button {
   display: block;
   width: 100%;
@@ -178,7 +183,7 @@ button.cancel {
 .box-list .options i:nth-child(1) { color: green; }
 .box-list .options i:nth-child(2) { color: #b30000; }
 
-select {
+div.search select {
   display: block;
   margin-top: 5px;
   padding: 5px;

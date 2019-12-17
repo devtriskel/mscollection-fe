@@ -4,7 +4,7 @@
 
     <form [formGroup]="styleForm" (ngSubmit)="onSubmit()">
       <label>
-        Estilo musical:
+        Estilo musical
         <input type="text" formControlName="name"/>
         <div *ngIf="isSubmitted && styleForm.controls.name.errors" class="input-form-error">
           <div *ngIf="styleForm.controls.name.errors.required">Estilo es requerido</div>
