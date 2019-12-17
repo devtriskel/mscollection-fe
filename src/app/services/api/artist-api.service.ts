@@ -22,7 +22,7 @@ export class ArtistApiService {
   constructor(private http: HttpClient) { }
 
   getAllArtists() {
-    return this.http.get<Artists>(environment.apiArtists)
+    return this.http.get<Artists>(environment.apiArtists + '?sort=name')
       .pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)

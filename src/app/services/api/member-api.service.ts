@@ -21,7 +21,7 @@ export class MemberApiService {
   constructor(private http: HttpClient) { }
 
   getAllMembers() {
-    return this.http.get<Members>(environment.apiMembers)
+    return this.http.get<Members>(environment.apiMembers + '?sort=name')
       .pipe(
         timeout(environment.timeout),
         catchError(this.errorHandler)
